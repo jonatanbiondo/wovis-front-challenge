@@ -1,5 +1,5 @@
 <template>
-    <div class="row h-100">
+    <div class="auth row h-100">
         <div class="col-12 col-md-6 col-lg-4 p-0 ml-0 col py-4">
             <div class="h-100 px-4">
                 <div>
@@ -30,5 +30,4 @@ export default {
     name: 'Login'
 }
 </script>
-
  

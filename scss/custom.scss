@@ -4,3 +4,11 @@ $colors: (
 );
 
 @import "../node_modules/bootstrap/scss/bootstrap";
+
+#MyApp .auth .vw-img {
+  width: 100%;
+  -o-object-fit: cover;
+  object-fit: cover;
+  -o-object-position: right;
+  object-position: right;
+}

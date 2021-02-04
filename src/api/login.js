@@ -1,4 +1,4 @@
-import axios from 'axios'
+import api from './base'
 
 export async function login(username, password){
     const headers = {
@@ -6,7 +6,7 @@ export async function login(username, password){
         "Access-Control-Allow-Origin": '*'
     };
     try{
-      const response = await axios.post('http://127.0.0.1:3000/login', {
+      const response = await api.post('/login', {
         'username': username,
         'password': password
       },{headers}); 
