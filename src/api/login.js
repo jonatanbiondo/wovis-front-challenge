@@ -1,19 +1,20 @@
 import axios from 'axios'
 
-export function login(username, password){
+export async function login(username, password){
     const headers = {
         'Content-Type': 'application/json',
         "Access-Control-Allow-Origin": '*'
     };
-    //return axios.post('http://admin.localwobiz.com:3000/login', {
-    return axios.post('http://127.0.0.1:3000/login', {
+    try{
+      const response = await axios.post('http://127.0.0.1:3000/login', {
         'username': username,
         'password': password
-      },{headers})
-      .then(function (response) {
-        return response.data 
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+      },{headers}); 
+      response.data.success = true
+      return {"success":true}
+     
+        
+    } catch(error) {
+      return {"success":false, "message": error.response.data.message}
+    }
 }

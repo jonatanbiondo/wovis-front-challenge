@@ -7,52 +7,7 @@
                 </div>
                 <div>
                     <h3 class="mt-5 mb-4 font-weight-bolder">Ingresá a tu cuenta</h3>
-                    <ValidationObserver v-slot="{ handleSubmit }">
-                        <form @submit.prevent="handleSubmit(onSubmit)" >
-                            <div class="mb-3">
-                                <ValidationProvider name="E-mail" rules="required|email" v-slot="{ errors }">
-                                    <label for="email" class="form-label">Email</label>
-                                    <input 
-                                        v-model="email"
-                                        type="email" 
-                                        class="form-control form-control-lg" 
-                                        id="email" 
-                                        placeholder="nombre@example.com"
-                                         :class="{'is-invalid':errors[0]}"
-                                    > 
-                                    <div  class="invalid-feedback" :class="{'was-validated':errors[0]}">
-                                        {{ errors[0] }}
-                                    </div>                                     
-                                </ValidationProvider>
-                            </div> 
-                            <div class="mb-3">
-                                <ValidationProvider name="Password" rules="required|min:6" v-slot="{ errors }">
-                                    <label for="password" class="form-label">Contraseña</label>
-                                    <input 
-                                        v-model="password"
-                                        type="password" 
-                                        class="form-control form-control-lg" 
-                                        id="password"
-                                        placeholder="Ingresá tu contraseña"
-                                         :class="{'is-invalid':errors[0]}"
-                                    >
-                                    <div  class="invalid-feedback" :class="{'was-validated':errors[0]}">
-                                        {{ errors[0] }}
-                                    </div>
-                                </ValidationProvider>
-                            </div> 
-                            <div class="pl-0 mt-2 mb-2 link-decoration">
-                                <a class="text-reset" href="#">¿Olvidaste tu contraseña?</a>
-                            </div> 
-                            <div class="mb-3">
-                                <div class="d-grid gap-2">
-                                    <button type="submit"  class="btn btn-primary">
-                                        Ingresar a mi cuenta
-                                    </button>
-                                </div>
-                            </div> 
-                        </form>
-                    </ValidationObserver>
+                    <LoginForm />
                 </div>
             </div>
             
@@ -67,47 +22,12 @@
 </template>
 
 <script>
-import Logo from '../components/Logo' 
-import { extend } from 'vee-validate';
-import { required, email, min } from 'vee-validate/dist/rules';
-import {doLogin} from '../service/auth'
-// Override the default message.
-extend('required', {
-  ...required,
-  message: 'Este campo es requerido'
-});
-
-// Override the default message.
-extend('email', {
-  ...email,
-  message: 'El email ingresado no es correcto.'
-});
-// Override the default message.
-extend('min', {
-  ...min,
-  message: 'El campo requiere {length} caracteres como mínimo'
-});
-
+import Logo from '../components/Logo'
+import LoginForm from '../components/LoginForm' 
 
 export default {
-    components:{Logo},
-    name: 'Login',
-
-    data: () => ({
-        email:'',
-        password:''
-    }),
-    methods:{
-        onSubmit(){
-
-            doLogin(this.email, this.password)
-            .then(function (data) {
-                console.log(data);
-                alert("Usuario logueado correctamente");
-            })
-             
-        }
-    }
+    components:{Logo,LoginForm},
+    name: 'Login'
 }
 </script>
 
