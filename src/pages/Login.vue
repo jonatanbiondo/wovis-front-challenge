@@ -7,8 +7,8 @@
                 </div>
                 <div>
                     <h3 class="mt-5 mb-4 font-weight-bolder">Ingresá a tu cuenta</h3>
-                    <ValidationObserver  >
-                        <form v-on:submit.prevent="onSubmit" >
+                    <ValidationObserver v-slot="{ handleSubmit }">
+                        <form @submit.prevent="handleSubmit(onSubmit)" >
                             <div class="mb-3">
                                 <ValidationProvider name="E-mail" rules="required|email" v-slot="{ errors }">
                                     <label for="email" class="form-label">Email</label>
@@ -26,7 +26,7 @@
                                 </ValidationProvider>
                             </div> 
                             <div class="mb-3">
-                                <ValidationProvider name="Password" rules="required" v-slot="{ errors }">
+                                <ValidationProvider name="Password" rules="required|min:6" v-slot="{ errors }">
                                     <label for="password" class="form-label">Contraseña</label>
                                     <input 
                                         v-model="password"
@@ -46,7 +46,7 @@
                             </div> 
                             <div class="mb-3">
                                 <div class="d-grid gap-2">
-                                    <button  class="btn btn-primary">
+                                    <button type="submit"  class="btn btn-primary">
                                         Ingresar a mi cuenta
                                     </button>
                                 </div>
@@ -67,9 +67,10 @@
 </template>
 
 <script>
-import Logo from './Logo' 
+import Logo from '../components/Logo' 
 import { extend } from 'vee-validate';
-import { required, email } from 'vee-validate/dist/rules';
+import { required, email, min } from 'vee-validate/dist/rules';
+import {doLogin} from '../service/auth'
 // Override the default message.
 extend('required', {
   ...required,
@@ -80,6 +81,11 @@ extend('required', {
 extend('email', {
   ...email,
   message: 'El email ingresado no es correcto.'
+});
+// Override the default message.
+extend('min', {
+  ...min,
+  message: 'El campo requiere {length} caracteres como mínimo'
 });
 
 
@@ -93,7 +99,12 @@ export default {
     }),
     methods:{
         onSubmit(){
-            
+
+            doLogin(this.email, this.password)
+            .then(function (data) {
+                console.log(data);
+                alert("Usuario logueado correctamente");
+            })
              
         }
     }
