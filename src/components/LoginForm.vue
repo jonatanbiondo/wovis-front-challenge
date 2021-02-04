@@ -3,7 +3,7 @@
     <ValidationObserver ref="observer" v-slot="{ handleSubmit }">
         <form @submit.prevent="handleSubmit(onSubmit)" >
             <div class="mb-3">
-                <ValidationProvider ref="provider" name="E-mail" rules="required|email" v-slot="{ errors }">
+                <ValidationProvider ref="providerUsername" name="E-mail" rules="required|email" v-slot="{ errors }">
                     <label for="email" class="form-label">Email</label>
                     <input 
                         v-model="email"
@@ -19,7 +19,7 @@
                 </ValidationProvider>
             </div> 
             <div class="mb-3">
-                <ValidationProvider name="Password" rules="required|min:6" v-slot="{ errors }">
+                <ValidationProvider ref="providerPassword" name="Password" rules="required|min:6" v-slot="{ errors }">
                     <label for="password" class="form-label">Contraseña</label>
                     <input 
                         v-model="password"
@@ -106,7 +106,7 @@ export default {
         async onSubmit(){
             this.loading = true
             const data =   await doLogin(this.email, this.password)
-             
+            console.log(data);
             if(data.success){
                 this.message = "Usuario logueado correctamente";
                 this.msg_type = 'alert-success'

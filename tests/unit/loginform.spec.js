@@ -11,10 +11,15 @@ describe('Login.vue',  () => {
       propsData: { msg }
     })
     wrapper.find('input').setValue('');
+    wrapper.find('input[type="password"]').setValue('');
     // flush the pending validation.
     await flushPromises();
     // Get the error message from the ref
-    const error = wrapper.vm.$refs.provider.errors[0];
+    const error = wrapper.vm.$refs.providerUsername.errors[0];
     expect(error).toBeTruthy();
+
+    const errorPass = wrapper.vm.$refs.providerPassword.errors[0];
+    expect(errorPass).toBeTruthy();
+
   })
 })
