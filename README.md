@@ -1,4 +1,4 @@
-# wobiz-front
+# wobiz-front-challenge
 
 ## Project setup
 ```
